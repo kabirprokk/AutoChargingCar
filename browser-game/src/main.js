@@ -154,7 +154,6 @@ async function loadModel(){
     templateCar.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material){o.material.side=THREE.DoubleSide;}}});
     templateCar.visible=false;
     scene.add(templateCar);
-    state.energyWh=P.usable_energy_Wh;
     $('connection').textContent='Blender drivetrain + V1 electronics · '+(gltf.animations[0]?.name||'live physical rig');
     $('motorSpec').textContent=`${P.motor_model} · datasheet proxy`;
     const a=steadyEstimate(0,0,1),b=steadyEstimate(.65,1,1);
