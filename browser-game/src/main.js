@@ -225,6 +225,7 @@ function findCarParts(root){
 }
 function createCar(color,isUser){
   const root=templateCar.clone(true);
+  root.visible=true;
   tintCar(root,color);
   root.scale.setScalar(4); root.position.set(0,0,0);
   const parts=findCarParts(root);
