@@ -587,7 +587,7 @@ function inputs(){
 // ---------- Events ----------
 document.addEventListener('keydown',e=>{if(e.target instanceof HTMLInputElement)return;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();keys.add(e.key.toLowerCase());if(e.key.toLowerCase()==='g'&&!e.repeat){generatorOn=!generatorOn;setToggle($('generatorSwitch'),generatorOn); if(userCar)userCar.state.connected=generatorOn;} });
 document.addEventListener('keyup',e=>{keys.delete(e.key.toLowerCase());if(e.key===' ')state.brake=0;});
-window.addEventListener('blur',()=>{keys.clear();state.brake=0;state.reverse=false;$('throttle').value=0;$('driveButton').classList.remove('active');$('reverseButton').classList.remove('active');});
+window.addEventListener('blur',()=>{keys.clear();if(state){state.brake=0;state.reverse=false;}$('throttle').value=0;$('driveButton').classList.remove('active');$('reverseButton').classList.remove('active');});
 function setToggle(el,on){el.classList.toggle('on',on);el.setAttribute('aria-pressed',String(on));el.querySelector('span').textContent=on?'ON':'OFF';}
 $('throttle').addEventListener('input',()=>{$('throttleValue').textContent=$('throttle').value+'%';});
 $('steer').addEventListener('input',()=>{$('steerValue').textContent=$('steer').value+'%';});
@@ -631,7 +631,7 @@ const PHYSICS_STEP=1/120;let last=performance.now(),physicsAccumulator=0;
 function animate(now){
   requestAnimationFrame(animate);
   const frameDt=Math.min(.1,Math.max(0,(now-last)/1000));last=now;
-  if(!state.paused&&P && modelLoaded){
+  if(state && !state.paused && P && modelLoaded){
     // user inputs
     const userInp = userCar ? getUserInputs() : {throttle:0,driveTh:0,reverse:false,brake:0};
     // record sample before step
