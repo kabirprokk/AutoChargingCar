@@ -459,16 +459,15 @@ function setMode(m){
   mode=m;
   document.querySelectorAll('.mode-btn').forEach(b=>{const on=b.dataset.mode===m;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on));});
   clearCars();
-  state.paused=false;
   if(m==='free'){
     hideTrackVisuals();
     const c=createCar(CAR_COLORS[0],true); cars.push(c); userCar=c;
-    state=c.state; state.energyWh=P.usable_energy_Wh;
+    state=c.state; state.energyWh=P.usable_energy_Wh; state.paused=false;
     $('raceHud').hidden=true;
   } else if(m==='traffic'){
     makeTrackVisuals();
     const c=createCar(CAR_COLORS[0],true); cars.push(c); userCar=c;
-    state=c.state; state.energyWh=P.usable_energy_Wh;
+    state=c.state; state.energyWh=P.usable_energy_Wh; state.paused=false;
     // spawn traffic
     for(let i=0;i<6;i++){
       const tc=createCar(CAR_COLORS[1+i% (CAR_COLORS.length-1)],false);
@@ -484,7 +483,7 @@ function setMode(m){
   } else if(m==='race'){
     makeTrackVisuals();
     const c=createCar(CAR_COLORS[0],true); cars.push(c); userCar=c;
-    state=c.state; state.energyWh=P.usable_energy_Wh;
+    state=c.state; state.energyWh=P.usable_energy_Wh; state.paused=false;
     const ai=createCar(CAR_COLORS[2],false);
     ai.ai.targetSpeed=0.7;
     const s=Math.PI; // opposite side
